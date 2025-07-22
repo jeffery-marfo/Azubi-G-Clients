@@ -1,9 +1,11 @@
 import { BrowserRouter, Route, Routes, Navigate } from 'react-router-dom'
+import './App.css'
 import Signup from './Onboarding/Signup'
 import Login from './Onboarding/Login'
 import OtpVerification from './Onboarding/OtpVerification'
 import ResetPassword from './Onboarding/ResetPassword'
 import CreateNewPassword from './Onboarding/CreateNewPassword'
+import Dashboard from './Dashboard'
 
 function App() {
   return (
@@ -14,7 +16,8 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/otp-verification" element={<OtpVerification />} />
           <Route path="/reset-password" element={<ResetPassword />} />
-          <Route path="/create-new-password" element={<CreateNewPassword />} />
+          <Route path="/reset-password/:token" element={<CreateNewPassword />} />
+          <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/" element={<Navigate to="/login" replace />} />
         </Routes>
       </BrowserRouter>
