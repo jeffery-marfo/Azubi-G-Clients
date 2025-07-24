@@ -7,13 +7,12 @@ import { FaUserCircle, FaSignOutAlt } from 'react-icons/fa';
 const Sidebar = () => {
   const location = useLocation();
   return (
-    <div className="h-screen w-64 bg-[#0866B3] flex flex-col justify-between py-6 px-4 text-white">
+    <div className="fixed top-0 left-0 h-screen w-60 bg-[#01589A] flex flex-col justify-between py-6 px-4 text-white z-30">
       {/* Logo Section */}
       <div>
         <div className="flex flex-col items-center mb-10">
-          <div className="bg-white rounded-lg shadow-md flex flex-col items-center justify-center w-44 h-16 mb-2">
+          <div className="bg-white rounded-lg shadow-md flex flex-col items-center justify-center w-54 h-20 mb-2">
             <img src={logo} alt="Logo" className="h-7 w-auto mb-1" />
-            <span className="text-[#0866B3] font-bold text-lg leading-none">CLient</span>
           </div>
         </div>
         {/* Navigation */}
