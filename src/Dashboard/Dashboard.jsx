@@ -7,7 +7,7 @@ import LatestInvoice from '../components/LatestInvoice';
 
 const Dashboard = () => {
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-white">
       <Sidebar />
       {/* Main content */}
       <div className=" p-8 overflow-auto min-h-screen">

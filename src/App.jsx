@@ -8,6 +8,7 @@ import CreateNewPassword from './Onboarding/CreateNewPassword'
 import Dashboard from './Dashboard/Dashboard'
 import TracksPage from './Dashboard/TracksPage'
 import DetailedTrackPage from './Dashboard/DetailedTrackPage'
+import CoursesPage from './Dashboard/CoursesPage'
 import DashboardLayout from './layouts/DashboardLayout'
 
 function App() {
@@ -26,6 +27,7 @@ function App() {
             <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/tracks" element={<TracksPage />} />
             <Route path="/tracks/:trackId" element={<DetailedTrackPage />} />
+            <Route path="/courses" element={<CoursesPage />} />
             {/* Add more dashboard routes here */}
           </Route>
 
