@@ -1,12 +1,14 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { ArrowLeft, Calendar, User, Star, Edit, Trash2 } from 'lucide-react';
+import UpdateTrackModal from '../components/UpdateTrackModal'; // make sure path is correct
 
 const DetailedTrackPage = () => {
   const navigate = useNavigate();
   const { trackId } = useParams();
-  
-  // Mock data - in a real app, you would fetch this based on trackId
+
+  const [showUpdateModal, setShowUpdateModal] = useState(false);
+
   const trackData = {
     id: trackId,
     title: 'Software Development',
@@ -21,25 +23,31 @@ const DetailedTrackPage = () => {
     ],
     rating: 4.9,
     totalRatings: 50,
-    description: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.',
+    description:
+      "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
   };
 
   const renderStars = (rating) => {
     return [...Array(5)].map((_, index) => (
       <Star
         key={index}
-        className={`w-4 h-4 ${
-          index < Math.floor(rating)
-            ? 'fill-yellow-400 text-yellow-400'
-            : 'text-gray-300'
-        }`}
+        className={`w-4 h-4 ${index < Math.floor(rating)
+          ? 'fill-yellow-400 text-yellow-400'
+          : 'text-gray-300'
+          }`}
       />
     ));
   };
 
+  const handleUpdateSubmit = (updatedTrack) => {
+    console.log('Updated Track:', updatedTrack);
+    setShowUpdateModal(false);
+    // You can send updatedTrack to backend here
+  };
+
   return (
     <div className="min-h-screen bg-gray-50">
-        <div className=" p-8">
+      <div className="p-8">
         {/* Header */}
         <div className="flex items-center gap-4 mb-8">
           <button
@@ -50,7 +58,9 @@ const DetailedTrackPage = () => {
           </button>
           <div>
             <h1 className="text-2xl font-bold">Manage Tracks</h1>
-            <p className="text-gray-500 text-sm">Filter, sort, and access detailed tracks</p>
+            <p className="text-gray-500 text-sm">
+              Filter, sort, and access detailed tracks
+            </p>
           </div>
         </div>
 
@@ -63,71 +73,89 @@ const DetailedTrackPage = () => {
               alt={trackData.title}
               className="w-full h-80 object-cover rounded-2xl"
             />
-            <div className="absolute top-6 right-6 bg-white rounded-full px-4 py-2 text-lg font-bold shadow-lg text-gray-800">
-              {trackData.price}
-            </div>
           </div>
 
           {/* Track Info */}
           <div className="bg-white rounded-2xl p-8 shadow-sm">
-            <div className="flex items-start justify-between mb-6">
-              <div className="flex-1">
-                <h2 className="text-3xl font-bold text-gray-900 mb-4">{trackData.title}</h2>
-                
-                <div className="flex items-center gap-6 mb-6">
-                  <div className="flex items-center text-gray-600">
-                    <Calendar className="w-5 h-5 mr-2" />
-                    <span className="font-medium">{trackData.duration}</span>
-                  </div>
-                  <div className="flex items-center text-gray-600">
-                    <User className="w-5 h-5 mr-2" />
-                    <span className="font-medium">{trackData.instructor}</span>
-                  </div>
-                </div>
+            <h2 className="text-3xl font-bold text-gray-900 mb-4">
+              {trackData.title}
+            </h2>
 
-                {/* Tags */}
-                <div className="flex gap-3 mb-6">
-                  {trackData.tags.map((tag, index) => (
-                    <span
-                      key={index}
-                      className={`px-4 py-2 rounded-full text-sm font-medium ${tag.color}`}
-                    >
-                      {tag.label}
-                    </span>
-                  ))}
+            {/* Info row with duration, instructor and price */}
+            <div className="flex items-center justify-between mb-4">
+              <div className="flex items-center gap-6 text-gray-600">
+                <div className="flex items-center">
+                  <Calendar className="w-5 h-5 mr-2" />
+                  <span className="font-medium">{trackData.duration}</span>
                 </div>
-
-                {/* Rating */}
-                <div className="flex items-center gap-3 mb-6">
-                  <div className="flex items-center gap-1">
-                    {renderStars(trackData.rating)}
-                  </div>
-                  <span className="font-bold text-lg text-gray-900">{trackData.rating}</span>
-                  <span className="text-gray-500">/ {trackData.totalRatings}</span>
+                <div className="flex items-center">
+                  <User className="w-5 h-5 mr-2" />
+                  <span className="font-medium">{trackData.instructor}</span>
                 </div>
               </div>
+              <div className="text-lg font-bold text-gray-800">
+                {trackData.price}
+              </div>
+            </div>
 
-              {/* Action Buttons */}
-              <div className="flex gap-3">
-                <button className="flex items-center justify-center w-12 h-12 rounded-lg border border-gray-300 hover:bg-gray-50 transition-colors">
-                  <Edit className="w-5 h-5 text-gray-600" />
-                </button>
-                <button className="flex items-center justify-center w-12 h-12 rounded-lg border border-gray-300 hover:bg-gray-50 transition-colors">
-                  <Trash2 className="w-5 h-5 text-gray-600" />
-                </button>
+            {/* Tags + Rating in one line */}
+            <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-6">
+              <div className="flex gap-3 flex-wrap">
+                {trackData.tags.map((tag, index) => (
+                  <span
+                    key={index}
+                    className={`px-4 py-1.5 rounded-full text-sm font-medium ${tag.color}`}
+                  >
+                    {tag.label}
+                  </span>
+                ))}
+              </div>
+
+              <div className="flex items-center gap-3">
+                <div className="flex items-center gap-1">
+                  {renderStars(trackData.rating)}
+                </div>
+                <span className="font-bold text-lg text-gray-900">
+                  {trackData.rating}
+                </span>
+                <span className="text-gray-500">/ 5.0</span>
               </div>
             </div>
 
             {/* Description */}
-            <div>
-              <h3 className="text-lg font-semibold text-gray-900 mb-3">Description</h3>
+            <div className="mb-6">
+              <h3 className="text-lg font-semibold text-gray-900 mb-3">
+                Description
+              </h3>
               <p className="text-gray-700 leading-relaxed">
                 {trackData.description}
               </p>
             </div>
+
+            {/* Action Buttons */}
+            <div className="flex gap-3 justify-end">
+              <button
+                onClick={() => setShowUpdateModal(true)}
+                className="flex items-center justify-center w-12 h-12 rounded-lg border border-gray-300 hover:bg-gray-50 transition-colors"
+              >
+                <Edit className="w-5 h-5 text-gray-600" />
+              </button>
+              <button className="flex items-center justify-center w-12 h-12 rounded-lg border border-gray-300 hover:bg-gray-50 transition-colors">
+                <Trash2 className="w-5 h-5 text-gray-600" />
+              </button>
+            </div>
           </div>
         </div>
       </div>
+
+      {/* Update Modal */}
+      {showUpdateModal && (
+        <UpdateTrackModal
+          track={trackData}
+          onClose={() => setShowUpdateModal(false)}
+          onSubmit={handleUpdateSubmit}
+        />
+      )}
     </div>
   );
 };
