@@ -62,7 +62,7 @@ const TracksPage = () => {
   const [showModal, setShowModal] = useState(false);
 
   return (
-    <div className="min-h-screen bg-gray-50 p-8">
+    <div className="min-h-screen bg-white p-8">
       {/* Header */}
       <div className="mb-2">
         <h1 className="text-2xl font-bold mb-1">Manage Tracks</h1>
