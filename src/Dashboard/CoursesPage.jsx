@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
 import { Pencil, Trash2, Search, Plus } from 'lucide-react';
+import AddCourseModal from '../components/AddCourseModal';
+import UpdateCourseModal from '../components/UpdateCourseModal';
 
-const coursesMock = [
+const initialCourses = [
   { name: 'ReactJs', track: 'Software Development', date: 'Jan 6, 2022', icon: 'reactjs.png' },
   { name: 'NodeJs', track: 'Software Development', date: 'Jan 6, 2022', icon: 'nodejs.png' },
   { name: 'MongoDB', track: 'Software Development', date: 'Jan 6, 2022', icon: 'mongodb.png' },
@@ -13,12 +15,17 @@ const coursesMock = [
 ];
 
 const CoursesPage = () => {
+  const [courses, setCourses] = useState(initialCourses);
   const [search, setSearch] = useState('');
   const [activePage, setActivePage] = useState(1);
-  const itemsPerPage = 4;
-  const totalPages = Math.ceil(coursesMock.length / itemsPerPage);
+  const [showAddModal, setShowAddModal] = useState(false);
+  const [showUpdateModal, setShowUpdateModal] = useState(false);
+  const [selectedCourse, setSelectedCourse] = useState(null);
 
-  const filteredCourses = coursesMock.filter(course =>
+  const itemsPerPage = 4;
+  const totalPages = Math.ceil(courses.length / itemsPerPage);
+
+  const filteredCourses = courses.filter(course =>
     course.name.toLowerCase().includes(search.toLowerCase())
   );
 
@@ -26,6 +33,24 @@ const CoursesPage = () => {
     (activePage - 1) * itemsPerPage,
     activePage * itemsPerPage
   );
+
+  const handleAddCourse = (newCourse) => {
+    setCourses([...courses, { ...newCourse, date: new Date().toDateString() }]);
+    setShowAddModal(false);
+  };
+
+  const handleUpdateCourse = (updatedCourse) => {
+    setCourses(prev =>
+      prev.map(course =>
+        course.name === updatedCourse.name ? updatedCourse : course
+      )
+    );
+    setShowUpdateModal(false);
+  };
+
+  const handleDeleteCourse = (name) => {
+    setCourses(prev => prev.filter(course => course.name !== name));
+  };
 
   return (
     <div className="flex-1 flex flex-col bg-white">
@@ -41,7 +66,7 @@ const CoursesPage = () => {
 
       {/* Content */}
       <div className="flex-1 p-8">
-        {/* Search + Add Course */}
+        {/* Search + Add */}
         <div className="flex items-center justify-between mb-6">
           <div className="relative">
             <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
@@ -50,11 +75,14 @@ const CoursesPage = () => {
               placeholder="Search course"
               value={search}
               onChange={(e) => setSearch(e.target.value)}
-              className="pl-10 pr-4 py-2 w-80 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              className="pl-10 pr-4 py-2 w-80 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
           </div>
 
-          <button className="bg-[#01589A] hover:bg-[#116EB5] text-white px-4 py-2 rounded-md flex items-center gap-2 text-sm font-medium transition-colors">
+          <button
+            onClick={() => setShowAddModal(true)}
+            className="bg-[#01589A] hover:bg-[#116EB5] text-white px-4 py-2 rounded-md flex items-center gap-2 text-sm font-medium transition-colors"
+          >
             <Plus className="w-4 h-4" />
             Add course
           </button>
@@ -87,18 +115,23 @@ const CoursesPage = () => {
                       <span className="text-sm font-medium text-gray-900">{course.name}</span>
                     </div>
                   </td>
-                  <td className="py-4 px-6">
-                    <span className="text-sm text-gray-700">{course.track}</span>
-                  </td>
-                  <td className="py-4 px-6">
-                    <span className="text-sm text-gray-700">{course.date}</span>
-                  </td>
+                  <td className="py-4 px-6 text-sm text-gray-700">{course.track}</td>
+                  <td className="py-4 px-6 text-sm text-gray-700">{course.date}</td>
                   <td className="py-4 px-6 text-right">
                     <div className="flex items-center justify-end gap-2">
-                      <button className="p-2 hover:bg-gray-200 rounded-md transition-colors">
+                      <button
+                        onClick={() => {
+                          setSelectedCourse(course);
+                          setShowUpdateModal(true);
+                        }}
+                        className="p-2 hover:bg-gray-200 rounded-md transition-colors"
+                      >
                         <Pencil className="w-4 h-4 text-gray-500" />
                       </button>
-                      <button className="p-2 hover:bg-gray-200 rounded-md transition-colors">
+                      <button
+                        onClick={() => handleDeleteCourse(course.name)}
+                        className="p-2 hover:bg-gray-200 rounded-md transition-colors"
+                      >
                         <Trash2 className="w-4 h-4 text-gray-500" />
                       </button>
                     </div>
@@ -110,7 +143,42 @@ const CoursesPage = () => {
         </div>
 
         {/* Pagination */}
-        <div className="flex items-center justify-between mt-6 px-2">
+        {/* <div className="flex items-center justify-between mt-6 px-2">
+          <button
+            onClick={() => setActivePage((prev) => Math.max(prev - 1, 1))}
+            disabled={activePage === 1}
+            className={`px-4 py-2 border rounded-xl text-sm ${
+              activePage === 1 ? 'text-gray-400 cursor-not-allowed' : 'text-[#1A1A2C] hover:bg-gray-100'
+            }`}
+          >
+            Previous
+          </button>
+          <div className="flex gap-3">
+            {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
+              <button
+                key={page}
+                onClick={() => setActivePage(page)}
+                className={`w-8 h-8 flex items-center justify-center rounded-md text-sm border ${
+                  page === activePage
+                    ? 'bg-[#0056A1] text-white'
+                    : 'border-[#EEF9FF] text-[#1A1A2C] hover:bg-gray-100'
+                }`}
+              >
+                {page}
+              </button>
+            ))}
+          </div>
+          <button
+            onClick={() => setActivePage((prev) => Math.min(prev + 1, totalPages))}
+            disabled={activePage === totalPages}
+            className={`px-4 py-2 border rounded-xl text-sm ${
+              activePage === totalPages ? 'text-gray-400 cursor-not-allowed' : 'text-[#1A1A2C] hover:bg-gray-100'
+            }`}
+          >
+            Next
+          </button>
+        </div> */}
+         <div className="flex items-center justify-between mt-6 px-2">
           <button
             onClick={() => setActivePage((prev) => Math.max(prev - 1, 1))}
             disabled={activePage === 1}
@@ -158,6 +226,18 @@ const CoursesPage = () => {
           </button>
         </div>
       </div>
+
+      {/* Modals */}
+      {showAddModal && (
+        <AddCourseModal onClose={() => setShowAddModal(false)} onAdd={handleAddCourse} />
+      )}
+      {showUpdateModal && selectedCourse && (
+        <UpdateCourseModal
+          course={selectedCourse}
+          onClose={() => setShowUpdateModal(false)}
+          onUpdate={handleUpdateCourse}
+        />
+      )}
     </div>
   );
 };
