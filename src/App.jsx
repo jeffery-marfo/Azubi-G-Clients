@@ -10,6 +10,7 @@ import TracksPage from './Dashboard/TracksPage'
 import DetailedTrackPage from './Dashboard/DetailedTrackPage'
 import CoursesPage from './Dashboard/CoursesPage'
 import DashboardLayout from './layouts/DashboardLayout'
+import Invoices from './Dashboard/Invoices'
 
 function App() {
   return (
@@ -28,6 +29,7 @@ function App() {
             <Route path="/tracks" element={<TracksPage />} />
             <Route path="/tracks/:trackId" element={<DetailedTrackPage />} />
             <Route path="/courses" element={<CoursesPage />} />
+            <Route path="/invoices" element={<Invoices />} />
             {/* Add more dashboard routes here */}
           </Route>
 
