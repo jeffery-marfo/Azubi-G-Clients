@@ -2,16 +2,24 @@ import React, { useState } from 'react';
 import { Pencil, Trash2, Search, Plus } from 'lucide-react';
 import AddCourseModal from '../components/AddCourseModal';
 import UpdateCourseModal from '../components/UpdateCourseModal';
+import ReactJs from '../assets/images/ReactJs.png';
+import Node from '../assets/images/Node.png';
+import MongoDB from '../assets/images/MongoDB.png';
+import GCP from '../assets/images/GCP.png';
+import Python from '../assets/images/Python.png';
+import PowerBi from '../assets/images/PowerBi.png';
+import Azure from '../assets/images/Azure.png';
+import AWS from '../assets/images/AWS.png';
 
 const initialCourses = [
-  { name: 'ReactJs', track: 'Software Development', date: 'Jan 6, 2022', icon: 'reactjs.png' },
-  { name: 'NodeJs', track: 'Software Development', date: 'Jan 6, 2022', icon: 'nodejs.png' },
-  { name: 'MongoDB', track: 'Software Development', date: 'Jan 6, 2022', icon: 'mongodb.png' },
-  { name: 'GCP', track: 'Cloud Computing', date: 'Jan 5, 2022', icon: 'gcp.png' },
-  { name: 'Python', track: 'Data Science', date: 'Jan 5, 2022', icon: 'python.png' },
-  { name: 'PowerBI', track: 'Data Science', date: 'Jan 5, 2022', icon: 'powerbi.png' },
-  { name: 'Azure', track: 'Cloud Computing', date: 'Jan 4, 2022', icon: 'azure.png' },
-  { name: 'AWS', track: 'Cloud Computing', date: 'Jan 5, 2022', icon: 'aws.png' },
+  { name: 'ReactJs', track: 'Software Development', date: 'Jan 6, 2022', icon: ReactJs},
+  { name: 'NodeJs', track: 'Software Development', date: 'Jan 6, 2022', icon: Node },
+  { name: 'MongoDB', track: 'Software Development', date: 'Jan 6, 2022', icon: MongoDB },
+  { name: 'GCP', track: 'Cloud Computing', date: 'Jan 5, 2022', icon: GCP },
+  { name: 'Python', track: 'Data Science', date: 'Jan 5, 2022', icon: Python },
+  { name: 'PowerBI', track: 'Data Science', date: 'Jan 5, 2022', icon: PowerBi },
+  { name: 'Azure', track: 'Cloud Computing', date: 'Jan 4, 2022', icon: Azure },
+  { name: 'AWS', track: 'Cloud Computing', date: 'Jan 5, 2022', icon: AWS },
 ];
 
 const CoursesPage = () => {
@@ -108,7 +116,7 @@ const CoursesPage = () => {
                   <td className="py-4 px-6">
                     <div className="flex items-center gap-3">
                       <img
-                        src={`/icons/${course.icon}`}
+                        src={course.icon}
                         alt={course.name}
                         className="w-8 h-8 object-cover rounded-full"
                       />
@@ -142,42 +150,6 @@ const CoursesPage = () => {
           </table>
         </div>
 
-        {/* Pagination */}
-        {/* <div className="flex items-center justify-between mt-6 px-2">
-          <button
-            onClick={() => setActivePage((prev) => Math.max(prev - 1, 1))}
-            disabled={activePage === 1}
-            className={`px-4 py-2 border rounded-xl text-sm ${
-              activePage === 1 ? 'text-gray-400 cursor-not-allowed' : 'text-[#1A1A2C] hover:bg-gray-100'
-            }`}
-          >
-            Previous
-          </button>
-          <div className="flex gap-3">
-            {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
-              <button
-                key={page}
-                onClick={() => setActivePage(page)}
-                className={`w-8 h-8 flex items-center justify-center rounded-md text-sm border ${
-                  page === activePage
-                    ? 'bg-[#0056A1] text-white'
-                    : 'border-[#EEF9FF] text-[#1A1A2C] hover:bg-gray-100'
-                }`}
-              >
-                {page}
-              </button>
-            ))}
-          </div>
-          <button
-            onClick={() => setActivePage((prev) => Math.min(prev + 1, totalPages))}
-            disabled={activePage === totalPages}
-            className={`px-4 py-2 border rounded-xl text-sm ${
-              activePage === totalPages ? 'text-gray-400 cursor-not-allowed' : 'text-[#1A1A2C] hover:bg-gray-100'
-            }`}
-          >
-            Next
-          </button>
-        </div> */}
          <div className="flex items-center justify-between mt-6 px-2">
           <button
             onClick={() => setActivePage((prev) => Math.max(prev - 1, 1))}
