@@ -12,6 +12,7 @@ import CoursesPage from './Dashboard/CoursesPage'
 import DashboardLayout from './layouts/DashboardLayout'
 import Invoices from './Dashboard/Invoices'
 import LearnersPage from './Dashboard/Learners'
+import ManageProfile from './components/ManageProfile'
 
 function App() {
   return (
@@ -32,6 +33,7 @@ function App() {
             <Route path="/courses" element={<CoursesPage />} />
             <Route path="/invoices" element={<Invoices />} />
             <Route path="/learners" element={<LearnersPage/>}/>
+            <Route path='/manage-profile' element={<ManageProfile/>}/>
             {/* Add more dashboard routes here */}
           </Route>
 
