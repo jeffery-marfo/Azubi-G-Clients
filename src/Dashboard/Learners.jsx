@@ -109,121 +109,182 @@ const LearnersPage = () => {
     ), [filteredLearners, activePage, itemsPerPage]);
 
   return (
-    <div className="flex-1 flex flex-col bg-white">
-      <div className="bg-white px-8 py-6">
-        <h1 className="text-2xl font-semibold text-gray-900">Manage learners</h1>
-        <p className="text-sm text-gray-500 mt-1">Filter, sort, and access detailed learner profiles</p>
+    <div className="dashboard-container">
+      {/* Header */}
+      <div className="mb-6 md:mb-8">
+        <h1 className="responsive-title text-gray-900">Manage learners</h1>
+        <p className="text-sm md:text-base text-gray-500 mt-1">
+          Filter, sort, and access detailed learner profiles
+        </p>
       </div>
 
-      <div className="flex-1 p-8">
-        <div className="flex justify-end mb-6">
-          <div className="relative">
-            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
-            <input
-              type="text"
-              placeholder="Search learner"
-              value={search}
-              onChange={(e) => setSearch(e.target.value)}
-              className="pl-10 pr-4 py-2 w-80 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-            />
-          </div>
+      {/* Search Bar */}
+      <div className="flex justify-center md:justify-end mb-6">
+        <div className="relative w-full max-w-md md:max-w-xs">
+          <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
+          <input
+            type="text"
+            placeholder="Search learner"
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+            className="pl-10 pr-4 py-2 w-full border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+          />
         </div>
+      </div>
 
-        <div className="bg-white rounded-lg border border-[#EEF9FF] overflow-hidden">
-          <table className="w-full">
-            <thead className="bg-white">
-              <tr>
-                <th className="text-left py-4 px-6 text-xs font-medium text-gray-500 uppercase tracking-wider">Learners</th>
-                <th className="text-left py-4 px-6 text-xs font-medium text-gray-500 uppercase tracking-wider">Courses</th>
-                <th className="text-left py-4 px-6 text-xs font-medium text-gray-500 uppercase tracking-wider">Date Joined</th>
-                <th className="text-left py-4 px-6 text-xs font-medium text-gray-500 uppercase tracking-wider">Amount</th>
-                <th className="text-left py-4 px-6 text-xs font-medium text-gray-500 uppercase tracking-wider">Gender</th>
-                <th className="text-right py-4 px-6"></th>
-              </tr>
-            </thead>
-            <tbody>
-              {paginatedLearners.map((learner, index) => (
-                <tr
-                  key={learner.id}
-                  onClick={() => handleOpenModal(learner)}
-                  className={`${index % 2 === 0 ? 'bg-[#F9FBFC]' : 'bg-white'} border-t border-[#EEF9FF] transition-colors hover:bg-gray-100 cursor-pointer`}
-                >
-                  <td className="py-4 px-6">
-                    <div className="flex items-center gap-3">
-                      <img
-                        src={learner.avatar}
-                        alt={learner.learner}
-                        className="w-8 h-8 object-cover rounded-full"
-                      />
-                      <span className="text-sm font-medium text-gray-900">{learner.learner}</span>
-                    </div>
-                  </td>
-                  <td className="py-4 px-6 text-sm text-gray-700">{learner.email}</td>
-                  <td className="py-4 px-6 text-sm text-gray-700">{learner.dateJoined}</td>
-                  <td className="py-4 px-6 text-sm font-medium text-gray-900">{learner.amount}</td>
-                  <td className="py-4 px-6 text-sm text-gray-700">{learner.gender}</td>
-                  <td className="py-4 px-6 text-right">
-                    <button
-                      onClick={(e) => {
-                        e.stopPropagation(); // prevent row click
-                        handleOpenModal(learner);
-                      }}
-                      className="p-2 hover:bg-gray-200 rounded-md transition-colors"
-                      aria-label={`View details for ${learner.learner}`}
-                    >
-                      <Eye className="w-4 h-4 text-gray-500" />
-                    </button>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-
-        {/* Pagination */}
-        <div className="flex items-center justify-between mt-6 px-2">
-          <button
-            onClick={() => setActivePage((prev) => Math.max(prev - 1, 1))}
-            disabled={activePage === 1}
-            className={`flex items-center gap-2 px-4 py-2 border border-[#EEF9FF] rounded-xl text-sm font-medium transition shadow-sm ${
-              activePage === 1 ? 'text-gray-400 cursor-not-allowed bg-gray-50' : 'text-[#1A1A2C] hover:bg-gray-100'
-            }`}
-          >
-            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
-            </svg>
-            Previous
-          </button>
-
-          <div className="flex gap-3">
-            {Array.from({ length: Math.min(totalPages, 6) }, (_, i) => i + 1).map((page) => (
-              <button
-                key={page}
-                onClick={() => setActivePage(page)}
-                className={`w-8 h-8 flex items-center justify-center rounded-md text-sm font-medium transition-colors border ${
-                  page === activePage
-                    ? 'bg-[#0056A1] text-white border-[#0056A1]'
-                    : 'border-[#EEF9FF] text-[#1A1A2C] hover:bg-gray-100'
-                }`}
+      {/* Desktop Table View */}
+      <div className="hidden lg:block bg-white rounded-lg border border-[#EEF9FF] overflow-hidden mb-6">
+        <table className="w-full">
+          <thead className="bg-white">
+            <tr>
+              <th className="text-left py-4 px-6 text-xs font-medium text-gray-500 uppercase tracking-wider">Learners</th>
+              <th className="text-left py-4 px-6 text-xs font-medium text-gray-500 uppercase tracking-wider">Email</th>
+              <th className="text-left py-4 px-6 text-xs font-medium text-gray-500 uppercase tracking-wider">Date Joined</th>
+              <th className="text-left py-4 px-6 text-xs font-medium text-gray-500 uppercase tracking-wider">Amount</th>
+              <th className="text-left py-4 px-6 text-xs font-medium text-gray-500 uppercase tracking-wider">Gender</th>
+              <th className="text-right py-4 px-6"></th>
+            </tr>
+          </thead>
+          <tbody>
+            {paginatedLearners.map((learner, index) => (
+              <tr
+                key={learner.id}
+                onClick={() => handleOpenModal(learner)}
+                className={`${index % 2 === 0 ? 'bg-[#F9FBFC]' : 'bg-white'} border-t border-[#EEF9FF] transition-colors hover:bg-gray-100 cursor-pointer`}
               >
-                {page}
-              </button>
+                <td className="py-4 px-6">
+                  <div className="flex items-center gap-3">
+                    <img
+                      src={learner.avatar}
+                      alt={learner.learner}
+                      className="w-8 h-8 object-cover rounded-full"
+                    />
+                    <span className="text-sm font-medium text-gray-900">{learner.learner}</span>
+                  </div>
+                </td>
+                <td className="py-4 px-6 text-sm text-gray-700">{learner.email}</td>
+                <td className="py-4 px-6 text-sm text-gray-700">{learner.dateJoined}</td>
+                <td className="py-4 px-6 text-sm font-medium text-gray-900">{learner.amount}</td>
+                <td className="py-4 px-6 text-sm text-gray-700">{learner.gender}</td>
+                <td className="py-4 px-6 text-right">
+                  <button
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      handleOpenModal(learner);
+                    }}
+                    className="p-2 hover:bg-gray-200 rounded-md transition-colors"
+                    aria-label={`View details for ${learner.learner}`}
+                  >
+                    <Eye className="w-4 h-4 text-gray-500" />
+                  </button>
+                </td>
+              </tr>
             ))}
-          </div>
+          </tbody>
+        </table>
+      </div>
 
-          <button
-            onClick={() => setActivePage((prev) => Math.min(prev + 1, totalPages))}
-            disabled={activePage === totalPages}
-            className={`flex items-center gap-2 px-4 py-2 border border-[#EEF9FF] rounded-xl text-sm font-medium transition shadow-sm ${
-              activePage === totalPages ? 'text-gray-400 cursor-not-allowed bg-gray-50' : 'text-[#1A1A2C] hover:bg-gray-100'
-            }`}
+      {/* Mobile Card View */}
+      <div className="lg:hidden space-y-4 mb-6">
+        {paginatedLearners.map((learner) => (
+          <div 
+            key={learner.id} 
+            onClick={() => handleOpenModal(learner)}
+            className="bg-white rounded-lg border border-[#EEF9FF] p-4 cursor-pointer hover:bg-gray-50 transition-colors"
           >
-            Next
-            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-            </svg>
-          </button>
+            {/* Header with avatar and view button */}
+            <div className="flex items-center justify-between mb-3">
+              <div className="flex items-center gap-3">
+                <img
+                  src={learner.avatar}
+                  alt={learner.learner}
+                  className="w-12 h-12 object-cover rounded-full"
+                />
+                <div>
+                  <h3 className="font-medium text-gray-900 text-base">{learner.learner}</h3>
+                  <p className="text-sm text-gray-500 truncate">{learner.email}</p>
+                </div>
+              </div>
+              <button
+                onClick={(e) => {
+                  e.stopPropagation();
+                  handleOpenModal(learner);
+                }}
+                className="p-2 hover:bg-gray-100 rounded-lg transition-colors flex-shrink-0"
+                aria-label={`View details for ${learner.learner}`}
+              >
+                <Eye className="w-5 h-5 text-gray-500" />
+              </button>
+            </div>
+
+            {/* Details Grid */}
+            <div className="grid grid-cols-2 gap-3 text-sm">
+              <div>
+                <span className="text-gray-500 block">Date Joined</span>
+                <span className="text-gray-900 font-medium">{learner.dateJoined}</span>
+              </div>
+              <div>
+                <span className="text-gray-500 block">Amount</span>
+                <span className="text-gray-900 font-medium">{learner.amount}</span>
+              </div>
+              <div>
+                <span className="text-gray-500 block">Gender</span>
+                <span className="text-gray-900">{learner.gender}</span>
+              </div>
+              <div>
+                <span className="text-gray-500 block">Status</span>
+                <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-green-100 text-green-800">
+                  Active
+                </span>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      {/* Responsive Pagination */}
+      <div className="flex items-center justify-between px-2">
+        <button
+          onClick={() => setActivePage((prev) => Math.max(prev - 1, 1))}
+          disabled={activePage === 1}
+          className={`flex items-center gap-2 px-3 md:px-4 py-2 border border-[#EEF9FF] rounded-xl text-sm font-medium transition shadow-sm ${
+            activePage === 1 ? 'text-gray-400 cursor-not-allowed bg-gray-50' : 'text-[#1A1A2C] hover:bg-gray-100'
+          }`}
+        >
+          <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+          </svg>
+          <span className="hidden sm:inline">Previous</span>
+        </button>
+
+        <div className="flex gap-2 md:gap-3">
+          {Array.from({ length: Math.min(totalPages, 6) }, (_, i) => i + 1).map((page) => (
+            <button
+              key={page}
+              onClick={() => setActivePage(page)}
+              className={`w-8 h-8 flex items-center justify-center rounded-md text-sm font-medium transition-colors border ${
+                page === activePage
+                  ? 'bg-[#0056A1] text-white border-[#0056A1]'
+                  : 'border-[#EEF9FF] text-[#1A1A2C] hover:bg-gray-100'
+              }`}
+            >
+              {page}
+            </button>
+          ))}
         </div>
+
+        <button
+          onClick={() => setActivePage((prev) => Math.min(prev + 1, totalPages))}
+          disabled={activePage === totalPages}
+          className={`flex items-center gap-2 px-3 md:px-4 py-2 border border-[#EEF9FF] rounded-xl text-sm font-medium transition shadow-sm ${
+            activePage === totalPages ? 'text-gray-400 cursor-not-allowed bg-gray-50' : 'text-[#1A1A2C] hover:bg-gray-100'
+          }`}
+        >
+          <span className="hidden sm:inline">Next</span>
+          <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+          </svg>
+        </button>
       </div>
 
       {/* Modal */}
@@ -235,4 +296,3 @@ const LearnersPage = () => {
 };
 
 export default LearnersPage;
-
