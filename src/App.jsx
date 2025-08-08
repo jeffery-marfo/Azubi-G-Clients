@@ -14,11 +14,21 @@ import Invoices from './Dashboard/Invoices'
 import LearnersPage from './Dashboard/Learners'
 import ManageProfile from './components/ManageProfile'
 
+// Layout wrapper component that uses DashboardLayout correctly
+const DashboardLayoutWrapper = () => {
+  return (
+    <DashboardLayout>
+      <Outlet />
+    </DashboardLayout>
+  );
+};
+
 function App() {
   return (
     <div className="App">
       <BrowserRouter>
         <Routes>
+          {/* Auth routes - no layout */}
           <Route path="/signup" element={<Signup />} />
           <Route path="/login" element={<Login />} />
           <Route path="/otp-verification" element={<OtpVerification />} />
@@ -26,17 +36,17 @@ function App() {
           <Route path="/reset-password/:token" element={<CreateNewPassword />} />
 
           {/* Dashboard Layout for all dashboard pages */}
-          <Route element={<DashboardLayout><Outlet /></DashboardLayout>}>
+          <Route element={<DashboardLayoutWrapper />}>
             <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/tracks" element={<TracksPage />} />
             <Route path="/tracks/:trackId" element={<DetailedTrackPage />} />
             <Route path="/courses" element={<CoursesPage />} />
             <Route path="/invoices" element={<Invoices />} />
-            <Route path="/learners" element={<LearnersPage/>}/>
-            <Route path='/manage-profile' element={<ManageProfile/>}/>
-            {/* Add more dashboard routes here */}
+            <Route path="/learners" element={<LearnersPage />} />
+            <Route path="/manage-profile" element={<ManageProfile />} />
           </Route>
 
+          {/* Default redirect */}
           <Route path="/" element={<Navigate to="/login" replace />} />
         </Routes>
       </BrowserRouter>
