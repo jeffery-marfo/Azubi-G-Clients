@@ -1,9 +1,9 @@
 // Login.jsx
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import logo from '../assets/images/Logo.png';
-import bgImage from '../assets/images/SignUpBG.png';
-import { apiLogin } from '../services/auth';
+import logo from '../../assets/images/Logo.png';
+import bgImage from '../../assets/images/SignUpBG.png';
+import { apiLogin } from '../../services/auth';
 
 const Login = () => {
   const [form, setForm] = useState({ email: '', password: '' });

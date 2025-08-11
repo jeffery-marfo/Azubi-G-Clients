@@ -1,8 +1,8 @@
 // OtpVerification.jsx
 import React, { useState } from 'react';
-import Logo from '../assets/images/Logo.png';
-import bgImage from '../assets/images/SignUpBG.png';
-import { otpVerification, resendOtp } from '../services/auth';
+import Logo from '../../assets/images/Logo.png';
+import bgImage from '../../assets/images/SignUpBG.png';
+import { otpVerification, resendOtp } from '../../services/auth';
 import { useNavigate, useLocation } from 'react-router-dom';
 
 const OtpVerification = () => {
