@@ -1,9 +1,9 @@
 
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import logo from "../assets/images/Logo.png";
-import bgImage from "../assets/images/SignUpBG.png";
-import { adminSignUp, resendOtp } from '../services/auth';
+import logo from "../../assets/images/Logo.png";
+import bgImage from "../../assets/images/SignUpBG.png";
+import { adminSignUp, resendOtp } from '../../services/auth';
 import { Eye, EyeOff } from 'lucide-react';
 
 const Signup = () => {

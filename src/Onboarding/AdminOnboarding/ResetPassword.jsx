@@ -2,9 +2,9 @@
 // ResetPassword.jsx
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import logo from '../assets/images/Logo.png';
-import bgImage from '../assets/images/SignUpBG.png';
-import { forgotPassword } from '../services/auth';
+import Logo from '../../assets/images/Logo.png';
+import bgImage from '../../assets/images/SignUpBG.png';
+import { forgotPassword } from '../../services/auth';
 
 const ResetPassword = () => {
   const [email, setEmail] = useState('');

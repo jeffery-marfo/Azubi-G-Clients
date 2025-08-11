@@ -1,9 +1,9 @@
 // CreateNewPassword.jsx
 import React, { useState } from 'react';
 import { useNavigate, useParams, Link } from 'react-router-dom';
-import logo from '../assets/images/Logo.png';
-import bgImage from '../assets/images/SignUpBG.png';
-import { resetPassword } from '../services/auth';
+import Logo from '../../assets/images/Logo.png';
+import bgImage from '../../assets/images/SignUpBG.png';
+import { resetPassword } from '../../services/auth';
 
 const CreateNewPassword = () => {
   const { token } = useParams();
@@ -53,7 +53,7 @@ const CreateNewPassword = () => {
 
       <div className="relative z-10 bg-white bg-opacity-95 rounded-2xl shadow-2xl w-full max-w-md px-8 py-10 mx-4 my-12 flex flex-col items-center transform hover:scale-105 transition-all duration-300 border border-white border-opacity-20">
         <div className="mb-4 flex flex-col items-center">
-          <img src={logo} alt="Logo" className="h-8 mb-2" />
+          <img src={Logo} alt="Logo" className="h-8 mb-2" />
         </div>
         <h2 className="text-2xl font-semibold text-center mb-2">Create New Password</h2>
         <p className="text-gray-500 text-center text-sm mb-6">
