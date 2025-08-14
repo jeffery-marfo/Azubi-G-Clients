@@ -33,8 +33,8 @@ const Navbar = () => {
               <Link to="/learner/homepage" className={navLinkClass("/learner/homepage")}>
                 Home
               </Link>
-              <Link to="/learner/courses" className={navLinkClass("/learner/courses")}>
-                Courses
+              <Link to="/learner/tracks" className={navLinkClass("/learner/tracks")}>
+                Tracks
               </Link>
             </div>
           </div>
@@ -80,8 +80,8 @@ const Navbar = () => {
             <Link to="/learner/homepage" className={navLinkClass("/learner/homepage")}>
               Home
             </Link>
-            <Link to="/learner/courses" className={navLinkClass("/learner/courses")}>
-              Courses
+            <Link to="/learner/tracks" className={navLinkClass("/learner/tracks")}>
+              Tracks
             </Link>
             <div className="pt-4 pb-3 border-t border-gray-200 space-y-3">
               <Link
