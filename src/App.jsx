@@ -30,6 +30,10 @@ import LearnerTracks from './LearnerPortal/LearnerTracks';
 import SoftwareDevelopmentTrackDetail from './LearnerPortal/SoftwareDevelopmentTrackDetail';
 import DataScienceTrackDetail from './LearnerPortal/DataScienceTrackDetail';
 import CloudComputingTrackDetail from './LearnerPortal/CloudComputingTrackDetail';
+import CheckOut from './LearnerPortal/CheckOut';
+import PortalDashboard from './LearnerPortal/PortalDashboard';
+import SettingsPage from './LearnerPortal/SettingsPage';
+import InvoicesPage from './LearnerPortal/Invoices';
 
 
 // Layout wrapper for admin dashboard
@@ -69,7 +73,7 @@ function App() {
             <Route path="/learner/signup" element={<LearnerSignUp />} />
             <Route path="/learner/learner-otp-verification" element={<LearnerOTPVerification />} />
             <Route path="/learner/learner-forgot-password" element={<LearnerForgotPassword />} />
-            <Route path="/learner/learner-reset-password" element={<LearnerResetPassword />} />
+            <Route path="/learner/learner-reset-password/:token" element={<LearnerResetPassword />} />
             <Route path="/learner/homepage" element={<LearnerHomepage />} />
 
             {/* Tracks listing */}
@@ -80,6 +84,9 @@ function App() {
             <Route path="/learner/tracks/data-science-mastery" element={<DataScienceTrackDetail />} />
             <Route path="/learner/tracks/cloud-computing-expertise" element={<CloudComputingTrackDetail />} />
             <Route path='/learner/tracks/check-out' element={<CheckOut/>}/>
+            <Route path='/learner/tracks/portal-dashboard' element={<PortalDashboard/>}/>
+            <Route path='/learner/tracks/settings' element={<SettingsPage/>}/>
+            <Route path='/learner/tracks/invoices' element={<InvoicesPage/>}/>
           </Route>
 
           {/* ================= Default Redirect ================= */}

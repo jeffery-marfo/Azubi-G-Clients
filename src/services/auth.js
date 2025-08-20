@@ -1,10 +1,18 @@
+
 // auth.js
 import { apiClient } from './config';
 
+// Admin Auth
 export const adminSignUp = async (payload) => {
   return apiClient.post('/auth/signup/admin', payload);
 };
 
+// Learner Auth
+export const learnerSignUp = async (payload) => {
+  return apiClient.post('/auth/signup/learner', payload);
+};
+
+// General Auth (works for both admin and learner)
 export const apiLogin = async (payload) => {
   return apiClient.post('/auth/login', payload);
 };

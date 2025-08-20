@@ -1,12 +1,41 @@
 import React, { useState } from 'react';
 import { Mail } from 'lucide-react';
+import { forgotPassword } from '../../services/auth'; 
 import illustration from "../../assets/images/illustration.png";
 
 function LearnerForgotPassword() {
   const [email, setEmail] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
+  const [message, setMessage] = useState('');
+  const [error, setError] = useState('');
 
-  const handleSubmit = () => {
-    console.log('Reset password request for:', email);
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    if (!email) {
+      setError('Please enter your email address');
+      return;
+    }
+
+    setIsLoading(true);
+    setError('');
+    setMessage('');
+
+    try {
+      const response = await forgotPassword({ 
+        email,
+        baseResetURL: `${window.location.origin}/learner/learner-reset-password`
+      });
+      
+      setMessage('Password reset link has been sent to your email. Please check your inbox.');
+      setEmail(''); // Clear the form
+    } catch (err) {
+      console.error('Forgot password error:', err);
+      const res = err?.response?.data;
+      const message = res?.errors ? Object.values(res.errors).flat().join(' ') : res?.message;
+      setError(message || 'Request failed. Please try again.');
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
@@ -34,7 +63,21 @@ function LearnerForgotPassword() {
             </p>
           </div>
 
-          <div className="space-y-6">
+          <form onSubmit={handleSubmit} className="space-y-6">
+            {/* Success Message */}
+            {message && (
+              <div className="bg-green-50 border border-green-200 text-green-700 px-4 py-3 rounded-lg">
+                {message}
+              </div>
+            )}
+
+            {/* Error Message */}
+            {error && (
+              <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg">
+                {error}
+              </div>
+            )}
+
             {/* Email Input Field */}
             <div>
               <div className="relative">
@@ -45,19 +88,21 @@ function LearnerForgotPassword() {
                   onChange={(e) => setEmail(e.target.value)}
                   placeholder="Email"
                   className="w-full pl-12 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all duration-200 bg-gray-50"
+                  disabled={isLoading}
                 />
               </div>
             </div>
 
             {/* Reset Password Button */}
             <button
-              onClick={handleSubmit}
-              className="w-full bg-blue-600 hover:bg-blue-700 text-white font-medium py-3 px-4 rounded-lg transition-colors duration-200 flex items-center justify-center"
+              type="submit"
+              disabled={isLoading || !email}
+              className="w-full bg-blue-600 hover:bg-blue-700 text-white font-medium py-3 px-4 rounded-lg transition-colors duration-200 flex items-center justify-center disabled:opacity-50 disabled:cursor-not-allowed"
             >
-              Reset password
-              <span className="ml-2">→</span>
+              {isLoading ? 'Sending...' : 'Reset password'}
+              {!isLoading && <span className="ml-2">→</span>}
             </button>
-          </div>
+          </form>
         </div>
       </div>
     </div>
