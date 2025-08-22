@@ -66,7 +66,7 @@ const LearnerTracks = () => {
   return (
     <div>
       {/* Header */}
-      <div className="w-full bg-blue-600 py-16 px-4">
+      <div className="w-full bg-[#01589A] py-16 px-4">
         <div className="max-w-7xl mx-auto">
           <h1 className="text-white text-4xl md:text-5xl font-light text-center">
             Tracks

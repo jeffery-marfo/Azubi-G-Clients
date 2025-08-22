@@ -15,7 +15,7 @@ import CloudComp from "../assets/images/CloudComp.png";
 function CourseProcess() {
   return (
     <section className="px-6 md:px-16 py-16 bg-gray-50">
-      <div className="max-w-6xl mx-auto grid md:grid-cols-2 gap-8 items-start">
+      <div className="max-w-8xl mx-auto grid md:grid-cols-2 gap-8 items-start">
         
         {/* LEFT SIDE */}
         <div className="space-y-8">
@@ -70,7 +70,7 @@ function CourseProcess() {
         </div>
 
         {/* RIGHT SIDE */}
-        <div className="bg-white rounded-xl shadow-lg p-12 max-w-[1700px] mx-auto">
+        <div className="bg-white rounded-xl shadow-lg p-12 w-full">
           {/* Steps 1 & 2 */}
           <div className="flex justify-between mb-10">
             {/* Step 1 */}
@@ -95,8 +95,8 @@ function CourseProcess() {
               <h3 className="text-base font-semibold text-gray-900">Choose a course</h3>
             </div>
 
-            {/* Course Cards */}
-            <div className="grid grid-cols-2 gap-5">
+            {/* Course Cards - All 3 in one row */}
+            <div className="grid grid-cols-3 gap-4">
               {/* Software Dev */}
               <div className="bg-white rounded-lg shadow-md p-4 text-center">
                 <img src={SoftwareDev} alt="Software Dev" className="w-10 h-10 mx-auto mb-3" />
@@ -120,7 +120,7 @@ function CourseProcess() {
               {/* Cloud Computing */}
               <div className="bg-white rounded-lg shadow-md p-4 text-center">
                 <img src={CloudComp} alt="Cloud Computing" className="w-10 h-10 mx-auto mb-3" />
-                <h4 className="font-medium text-sm text-gray-900 mb-1">Cloud Computing Expertise</h4>
+                <h4 className="font-medium text-sm text-gray-900 mb-1">Cloud Computing </h4>
                 <p className="text-gray-600 text-xs mb-3 leading-snug">
                   Gain hands-on experience in cloud architecture, preparing you to manage scalable solutions
                 </p>

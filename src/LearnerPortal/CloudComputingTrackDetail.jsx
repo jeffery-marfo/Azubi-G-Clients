@@ -67,7 +67,7 @@ const CloudComputingTrackDetail = () => {
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Blue Header Section */}
-      <div className="bg-blue-600 text-white relative">
+      <div className="bg-[#01589A] text-white relative">
         {/* Breadcrumb */}
         <div className="max-w-7xl mx-auto px-4 pt-4">
           <div className="flex items-center space-x-2 text-sm text-blue-100">
@@ -278,7 +278,7 @@ const CloudComputingTrackDetail = () => {
                   <div className="flex items-center justify-between py-3">
                     <div className="flex items-center space-x-2">
                       <BookOpen className="w-4 h-4 text-gray-400" />
-                      <span className="text-sm text-gray-600">Courses</span>
+                      <span className="text-sm text-gray-600">Courses</span>  
                     </div>
                     <span className="text-sm font-medium text-gray-900">
                       {course.lessons}

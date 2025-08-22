@@ -24,18 +24,18 @@ function CheckOut() {
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Header */}
-      <div className="bg-blue-600 text-white py-6">
-        <div className="container mx-auto px-4">
-          <h1 className="text-2xl font-semibold text-center">Checkout</h1>
+      <div className="bg-[#01589A] text-white py-6 h-25">
+        <div className="container mx-auto px-4 flex items-center justify-center">
+          <h1 className="text-2xl font-semibold">Checkout</h1>
         </div>
       </div>
 
       {/* Main Content */}
       <div className="container mx-auto px-4 py-8">
-        <div className="flex flex-col lg:flex-row gap-8 max-w-6xl mx-auto">
+        <div className="flex flex-col lg:flex-row gap-8 max-w-6xl mx-auto justify-center items-start">
           
           {/* Left Side - Form */}
-          <div className="flex-1 space-y-4 max-w-md">
+          <div className="flex-1 space-y-4 max-w-md mx-auto lg:mx-0">
             
             {/* Name Field */}
             <div className="relative">
@@ -148,7 +148,7 @@ function CheckOut() {
           </div>
 
           {/* Right Side - Payment */}
-          <div className="lg:w-80">
+          <div className="lg:w-80 mx-auto lg:mx-0">
             <div className="bg-white rounded-lg shadow-sm p-6">
               <h2 className="text-xl font-semibold text-gray-800 mb-6 text-center">Complete payment</h2>
               
