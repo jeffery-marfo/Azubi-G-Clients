@@ -64,7 +64,7 @@ const SoftwareDevelopmentTrackDetail = () => {
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Blue Header Section */}
-      <div className="bg-blue-600 text-white relative">
+      <div className="bg-[#01589A] text-white relative">
         {/* Breadcrumb */}
         <div className="max-w-7xl mx-auto px-4 pt-4">
           <div className="flex items-center space-x-2 text-sm text-blue-100">
